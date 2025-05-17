@@ -14,4 +14,5 @@ WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 
 # Run the application
+# "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
 ENTRYPOINT ["java", "-jar", "app.jar"]

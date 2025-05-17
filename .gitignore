@@ -32,5 +32,9 @@ build/
 ### Environment ###
 *.env
 
+### Rest Client files ###
+*.http
+*.rest
+
 ### VS Code ###
 .vscode/

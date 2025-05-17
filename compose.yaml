@@ -3,7 +3,7 @@ services:
     image: postgres:15
     container_name: pricecomparator-db
     environment:
-      POSTGRES_DB: price_comparator
+      POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
@@ -29,6 +29,10 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: pricecomparator-app
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "8081:8080"
     depends_on:
