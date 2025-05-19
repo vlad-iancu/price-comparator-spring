@@ -19,8 +19,9 @@ public class GlobalControllerHandler {
     public ResponseEntity<ErrorResponse> handleAllExceptions(Exception ex) {
         ErrorResponse error = new ErrorResponse(
                 "Internal Server Error",
-                "An internal server error has occured"
+                "An internal server error has occurred."
         );
+        System.err.println("An error occurred: " + ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 

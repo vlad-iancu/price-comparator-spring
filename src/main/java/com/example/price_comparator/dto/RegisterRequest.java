@@ -7,20 +7,23 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-interface Empty {
-}
-
-interface Invalid {
-}
-
-interface MinLength {
-}
-
 @Getter
 @Setter
-@GroupSequence({RegisterRequest.class, Empty.class, Invalid.class, MinLength.class})
+@GroupSequence({
+    RegisterRequest.class, 
+    RegisterRequest.Empty.class, 
+    RegisterRequest.Invalid.class, 
+    RegisterRequest.MinLength.class
+})
 public class RegisterRequest {
+    public interface Empty {
+    }
+    
+    public interface Invalid {
+    }
 
+    public interface MinLength {
+    }
     @Pattern(
             regexp = "^[a-zA-Z0-9._-]{3,}$",
             message = "Username must be at least 3 characters long and can only contain letters, numbers, dots, underscores, and hyphens",
