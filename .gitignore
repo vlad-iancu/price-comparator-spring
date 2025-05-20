@@ -36,5 +36,6 @@ build/
 *.http
 *.rest
 
+application-dev.properties
 ### VS Code ###
 .vscode/

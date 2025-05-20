@@ -10,7 +10,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
 public class JWTUtils {
-    // openssl rand -base64 32
+    
     private static final String SECRET_KEY_VALUE = System.getenv("JWT_SECRET_KEY");
     public static final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(SECRET_KEY_VALUE.getBytes());
     private static final long EXPIRATION_MILLIS = 3600000; // 1 hour
