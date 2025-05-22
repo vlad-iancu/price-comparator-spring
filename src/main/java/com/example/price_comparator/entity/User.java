@@ -15,12 +15,11 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-
+@Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor
-@Entity
 @Table(name = "app_user")
 public class User {
 
