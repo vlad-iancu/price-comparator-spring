@@ -119,6 +119,7 @@ ALTER TABLE IF EXISTS public.shopping_list_item
 ALTER TABLE IF EXISTS public.shopping_list_item
     ADD CONSTRAINT listitem_to_list_fk FOREIGN KEY (shopping_list_id)
     REFERENCES public.shopping_list (id) MATCH SIMPLE
+    REFERENCES public.shopping_list (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
