@@ -5,6 +5,7 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -43,7 +44,7 @@ public class ShoppingList {
     @NonNull
     private LocalDate createdAt;
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.LAZY)
     @JoinTable(name = "shopping_list_item",
             joinColumns = @JoinColumn(name = "shopping_list_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))

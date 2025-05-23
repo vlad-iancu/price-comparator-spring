@@ -1,5 +1,8 @@
 package com.example.price_comparator.entity;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -39,4 +42,12 @@ public class ProductStore {
 
     @NonNull
     private Double price;
+
+    @jakarta.persistence.OneToOne
+    @jakarta.persistence.JoinColumns({
+        @jakarta.persistence.JoinColumn(name = "store_id", referencedColumnName = "store_id"),
+        @jakarta.persistence.JoinColumn(name = "product_id", referencedColumnName = "product_id")
+    })
+    @NotFound(action = NotFoundAction.IGNORE)
+    private Discount discount;
 }

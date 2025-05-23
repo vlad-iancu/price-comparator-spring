@@ -3,6 +3,7 @@ package com.example.price_comparator.entity;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -27,6 +28,6 @@ public class Store {
     @NonNull
     private String name;
 
-    @OneToMany(mappedBy = "store")
+    @OneToMany(mappedBy = "store", fetch=FetchType.LAZY)
     private Set<ProductStore> productStores;
 }

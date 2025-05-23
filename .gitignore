@@ -35,7 +35,7 @@ build/
 ### Rest Client files ###
 *.http
 *.rest
-
+delete.sql
 application-dev.properties
 ### VS Code ###
 .vscode/
