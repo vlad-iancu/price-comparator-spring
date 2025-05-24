@@ -1,14 +1,13 @@
 package com.example.price_comparator.entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public class ProductStoreId implements Serializable {
+public class DiscountId implements Serializable {
 
     @Column(name = "product_id")
     private Long product;
@@ -16,16 +15,11 @@ public class ProductStoreId implements Serializable {
     @Column(name = "store_id")
     private Long store;
 
-    @Column(name = "updated_at")
-    private LocalDate updatedAt;
+    public DiscountId() {}
 
-    public ProductStoreId() {
-    }
-
-    public ProductStoreId(Long product, Long store, LocalDate updatedAt) {
+    public DiscountId(Long product, Long store) {
         this.product = product;
         this.store = store;
-        this.updatedAt = updatedAt;
     }
 
     public Long getProduct() {
@@ -43,28 +37,13 @@ public class ProductStoreId implements Serializable {
     public void setStore(Long store) {
         this.store = store;
     }
-
-    public LocalDate getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDate updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     // equals and hashCode based on product and store
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof ProductStoreId)) {
-            return false;
-        }
-        ProductStoreId that = (ProductStoreId) o;
-        return Objects.equals(product, that.product)
-                && Objects.equals(store, that.store)
-                && Objects.equals(updatedAt, that.updatedAt);
+        if (this == o) return true;
+        if (!(o instanceof DiscountId)) return false;
+        DiscountId that = (DiscountId) o;
+        return Objects.equals(product, that.product) && Objects.equals(store, that.store);
     }
 
     @Override

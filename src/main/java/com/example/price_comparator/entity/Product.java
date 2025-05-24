@@ -5,8 +5,6 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -25,7 +23,6 @@ import lombok.Setter;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "product_name", nullable = false)
@@ -46,6 +43,7 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     private Set<ProductStore> productStores;
+
     // @ManyToMany(mappedBy = "products")
     // private Set<ShoppingList> shoppingLists;
 

@@ -1,14 +1,13 @@
 package com.example.price_comparator.entity;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,26 +27,23 @@ public class ProductStore {
 
     @ManyToOne
     @MapsId("product")
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false, insertable = false, updatable = false)
     private Product product;
 
     @ManyToOne
     @MapsId("store")
-    @JoinColumn(name = "store_id")
+    @JoinColumn(name = "store_id", nullable = false, insertable = false, updatable = false)
     private Store store;
 
-    @Column(name = "package_quantity", nullable = false)
+    @Column(name = "package_quantity")
     @NonNull
     private Double packageQuantity;
 
     @NonNull
     private Double price;
 
-    @jakarta.persistence.OneToOne
-    @jakarta.persistence.JoinColumns({
-        @jakarta.persistence.JoinColumn(name = "store_id", referencedColumnName = "store_id"),
-        @jakarta.persistence.JoinColumn(name = "product_id", referencedColumnName = "product_id")
-    })
-    @NotFound(action = NotFoundAction.IGNORE)
-    private Discount discount;
+    @Column(name = "removal", nullable = false)
+    @NonNull
+    private Boolean removal;
+
 }

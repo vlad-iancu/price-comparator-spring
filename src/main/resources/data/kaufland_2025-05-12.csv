@@ -1,0 +1,13 @@
+product_id,product_name,product_category,brand,package_quantity,package_unit,price,currency
+P071,bere blondă,băuturi,Pilsen,0.5,l,31.50,RON
+P072,bere blondă,băuturi,Ciucaș,2.25,l,39.95,RON
+P073,bere blondă,băuturi,Golden Brau,0.5,l,2.99,RON
+P074,bere blondă,băuturi,Ciuc Premium,0.5,l,4.99,RON
+P075,porumb dulce,alimente de bază,Vita,340,g,41.80,RON
+P076,apă plată,băuturi,Om,6,l,19.95,RON
+P077,ceapă verde,legume și fructe,Generic,1,legătură,12.50,RON
+P078,brânză telemea,lactate,Generic,0.3,kg,9.79,RON
+P079,baghetă,panificație,Nizza,1,buc,3.50,RON
+P080,croissant,panificație,Generic,1,buc,2.50,RON
+P081,salam,carne,Vreau din România,0.4,kg,12.69,RON
+P082,biscuiți cu unt,gustări,Dare,100,g,2.20,RON

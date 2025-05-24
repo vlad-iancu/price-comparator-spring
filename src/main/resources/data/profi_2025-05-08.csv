@@ -1,5 +1,4 @@
-product_id,product_name,product_category,brand,package_quantity,package_unit,price,
-currency
+product_id,product_name,product_category,brand,package_quantity,package_unit,price,currency
 P001,lapte zuzu,lactate,Zuzu,1,l,13.00,RON
 P004,iaurt grecesc,lactate,Proxi,0.4,kg,11.40,RON
 P007,ouă mărimea M,ouă,Din Ogradă,10,buc,12.50,RON
@@ -25,3 +24,11 @@ P067,orez bob lung,alimente de bază,Deroni,1,kg,8.00,RON
 P068,iaurt de băut,lactate,Activia,0.33,kg,5.00,RON
 P069,pastă de dinți,îngrijire personală,Colgate,100,ml,10.50,RON
 P070,bere blondă,băuturi,Ursus,0.5,l,3.80,RON
+P093,spaghetti nr.5,paste făinoase,Barilla,500,g,5.50,RON
+P094,bere blondă,băuturi,Caraiman,2.2,l,8.30,RON
+P095,bere blondă,băuturi,Ciuc,0.66,l,5.20,RON
+P096,ceapă verde,legume și fructe,Generic,1,legătură,2.30,RON
+P097,baghetă,panificație,Generic,1,buc,2.45,RON
+P098,croissant,panificație,Generic,8,buc,8.80,RON
+P099,apă plată,băuturi,Perla Harghitei,5,l,4.60,RON
+P100,roșii cherry,legume și fructe,Strabena,300,g,10.30,RON
