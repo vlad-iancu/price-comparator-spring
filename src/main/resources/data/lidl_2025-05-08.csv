@@ -1,5 +1,4 @@
-product_id,product_name,product_category,brand,package_quantity,package_unit,price,
-currency
+product_id,product_name,product_category,brand,package_quantity,package_unit,price,currency
 P001,lapte zuzu,lactate,Zuzu,1,l,9.80,RON
 P002,iaurt grecesc,lactate,Lidl,0.4,kg,11.60,RON
 P005,ouă mărimea M,ouă,Lidl,10,buc,13.10,RON
@@ -25,3 +24,13 @@ P057,ceapă galbenă,legume și fructe,Lidl,1,kg,2.80,RON
 P064,mălai extra,alimente de bază,Pambac,1,kg,5.50,RON
 P065,file somon,pește,Lidl,0.2,kg,25.00,RON
 P066,cremă de brânză,lactate,Almette,0.15,kg,8.50,RON
+P083,salam,carne,Pikok,125,g,4.20,RON
+P084,salam,carne,Cămara noastră,350,g,12.30,RON
+P085,salam,carne,Dulano,200,g,5.60,RON
+P086,bere blondă,băuturi,Neumarkt,0.5,l,2.75,RON
+P087,croissant,panificație,Tortilla,117,g,7.50,RON
+P088,brânză telemea,lactate,Milbona,250,g,4.90,RON
+P089,brânză telemea,lactate,Cămara noastră,400,g,23.00,RON
+P090,brânză telemea,lactate,Pilos,100,g,2.40,RON
+P091,biscuiți cu unt,gustări,Eugenia,168,g,5.50,RON
+P092,biscuiți cu unt,gustări,Tedi,100,g,3.20,RON
