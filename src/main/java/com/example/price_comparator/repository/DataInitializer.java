@@ -19,10 +19,12 @@ import com.example.price_comparator.entity.ProductStore;
 import com.example.price_comparator.entity.Store;
 import com.example.price_comparator.entity.User;
 import com.example.price_comparator.entity.ProductStoreId;
+import com.example.price_comparator.entity.ShoppingList;
 
 import jakarta.annotation.PostConstruct;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -40,6 +42,7 @@ public class DataInitializer {
     private final ProductRepository productRepository;
     private final ProductStoreRepository productStoreRepository;
     private final DiscountRepository discountRepository;
+    private final ShoppingListRepository shoppingListRepository;
 
     public DataInitializer(
             UserRepository userRepository,
@@ -47,13 +50,15 @@ public class DataInitializer {
             StoreRepository storeRepository,
             ProductRepository productRepository,
             ProductStoreRepository productStoreRepository,
-            DiscountRepository discountRepository) {
+            DiscountRepository discountRepository,
+            ShoppingListRepository shoppingListRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.storeRepository = storeRepository;
         this.productRepository = productRepository;
         this.productStoreRepository = productStoreRepository;
         this.discountRepository = discountRepository;
+        this.shoppingListRepository = shoppingListRepository;
     }
 
     public void seedUsers() {
@@ -116,10 +121,6 @@ public class DataInitializer {
 
             Store store = dbstore.get();
             String line;
-            List<ProductStore> latestProductStores = productStoreRepository.findLatestActiveProductStores(store);
-            System.out
-                    .println("Found " + latestProductStores.size() + " latest product stores for store: " + storeName);
-            List<ProductStore> newlyAddedProductStores = new ArrayList<>();
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(",");
                 if (fields.length < 8) {
@@ -152,49 +153,11 @@ public class DataInitializer {
                 productStore.setId(new ProductStoreId(product.getId(), store.getId(), date));
                 productStore.setProduct(product);
                 productStore.setStore(store);
-                productStore.setRemoval(false); // Not a removal
                 productStore.setPackageQuantity(Double.valueOf(packageQuantity));
                 productStore.setPrice(Double.valueOf(price));
                 // System.out.println("Seeding product: " + product.getProductName() + " in
                 // store: " + store.getName() + " product id: " + product.getId().toString());
-                newlyAddedProductStores.add(productStore);
-            }
-            // Mark removed products
-            for (ProductStore latest : latestProductStores) {
-                boolean exists = newlyAddedProductStores.stream().anyMatch(
-                        ps -> ps.getProduct().getProductName().equals(latest.getProduct().getProductName()));
-                
-                if (!exists) {
-                    // System.out.println("Newly added products:");
-                    // for (ProductStore ps : newlyAddedProductStores) {
-                    //     System.out.println("Product ID: " + ps.getProduct().getId() + ", Name: " + ps.getProduct().getProductName() + ", Brand: " + ps.getProduct().getBrand() + ", Store: " + ps.getStore().getName());
-                    // }
-                    ProductStore removed = new ProductStore();
-                    removed.setId(new ProductStoreId(
-                            latest.getProduct().getId(),
-                            latest.getStore().getId(),
-                            LocalDate.parse(dateString)));
-                    removed.setProduct(latest.getProduct());
-                    removed.setStore(latest.getStore());
-                    removed.setPackageQuantity(latest.getPackageQuantity());
-                    removed.setPrice(latest.getPrice());
-                    removed.setRemoval(true);
-                    removed.getId().setUpdatedAt(LocalDate.parse(dateString));
-                    newlyAddedProductStores.add(removed);
-                    System.out.println("Marking product as removed: " + removed.getProduct().getProductName()
-                            + " in store: " + removed.getStore().getName() + " product id: "
-                            + removed.getProduct().getId().toString());
-                    // System.out.println("Length of latestProductStores: "
-                    //         + latestProductStores.size());
-                }
-            }
-            System.out.println("Products in latestProductStores:");
-            for (ProductStore ps : latestProductStores) {
-                System.out.println("Product ID: " + ps.getProduct().getId() + ", Name: " + ps.getProduct().getProductName() + ", Brand: " + ps.getProduct().getBrand() + ", " + ps.getStore().getName());
-            }
-            System.out.println("Press Enter to continue...");
-            System.in.read();
-            productStoreRepository.saveAll(newlyAddedProductStores);
+                productStoreRepository.save(productStore);}
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -234,14 +197,16 @@ public class DataInitializer {
 
                 // CSV columns:
                 // product_id,product_name,brand,package_quantity,package_unit,product_category,from_date,to_date,percentage_of_discount
-                String productName = fields[1];
-                String brand = fields[2];
+                String productIdStr = fields[0].substring(1); // Remove leading quote
+                // String productName = fields[1];
+                // String brand = fields[2];
                 String fromDate = fields[6];
                 String toDate = fields[7];
                 String percentage = fields[8];
 
+                Long productId = Long.valueOf(productIdStr);
                 // Find product by name and brand
-                Optional<Product> prod = productRepository.findByProductNameAndBrand(productName, brand);
+                Optional<Product> prod = productRepository.findById(productId);
                 if (prod.isEmpty()) {
                     continue;
                 }
@@ -261,7 +226,7 @@ public class DataInitializer {
 
                 discount.setId(discountId);
                 discount.setDiscountPercentage(Double.valueOf(percentage));
-                discount.setFromDate(java.time.LocalDate.parse(fromDate));
+                discount.getId().setFromDate(java.time.LocalDate.parse(fromDate));
                 discount.setToDate(java.time.LocalDate.parse(toDate));
                 // discount.setProductStore(productStore.get());
                 discount.setProduct(product);
@@ -283,21 +248,49 @@ public class DataInitializer {
 
         if (userAlice.isPresent()) {
             // Create a shopping list for Alice
-            // ShoppingList shoppingList = new ShoppingList("Alice's List", userAlice.get(),
-            // LocalDate.now(), new HashSet<>());
-            // shoppingListRepository.save(shoppingList);
+            HashSet<Product> products = new HashSet<>();
+            products.add(
+                productRepository.findById(1L).orElseThrow(() -> new RuntimeException("Product not found")
+            ));
+            products.add(
+                productRepository.findById(70L).orElseThrow(() -> new RuntimeException("Product not found")
+            ));
+            products.add(
+                productRepository.findById(33L).orElseThrow(() -> new RuntimeException("Product not found")
+            ));
+            ShoppingList shoppingList = new ShoppingList("Alice's List", userAlice.get(),
+            LocalDate.now(), products);
+            shoppingListRepository.save(shoppingList);
         }
         if (userBob.isPresent()) {
-            // Create a shopping list for Bob
-            // ShoppingList shoppingList = new ShoppingList("Bob's List", userBob.get(),
-            // LocalDate.now(), new HashSet<>());
-            // shoppingListRepository.save(shoppingList);
+            HashSet<Product> products = new HashSet<>();
+            products.add(
+                productRepository.findById(10L).orElseThrow(() -> new RuntimeException("Product not found")
+            ));
+            products.add(
+                productRepository.findById(30L).orElseThrow(() -> new RuntimeException("Product not found")
+            ));
+            products.add(
+                productRepository.findById(55L).orElseThrow(() -> new RuntimeException("Product not found")
+            ));
+            ShoppingList shoppingList = new ShoppingList("Bob's List", userBob.get(),
+            LocalDate.now(), products);
+            shoppingListRepository.save(shoppingList);
         }
         if (userCharlie.isPresent()) {
-            // Create a shopping list for Charlie
-            // ShoppingList shoppingList = new ShoppingList("Charlie's List",
-            // userCharlie.get(), LocalDate.now(), new HashSet<>());
-            // shoppingListRepository.save(shoppingList);
+            HashSet<Product> products = new HashSet<>();
+            products.add(
+                productRepository.findById(24L).orElseThrow(() -> new RuntimeException("Product not found")
+            ));
+            products.add(
+                productRepository.findById(26L).orElseThrow(() -> new RuntimeException("Product not found")
+            ));
+            products.add(
+                productRepository.findById(54L).orElseThrow(() -> new RuntimeException("Product not found")
+            ));
+            ShoppingList shoppingList = new ShoppingList("Charlie's List", userCharlie.get(),
+            LocalDate.now(), products);
+            shoppingListRepository.save(shoppingList);
         }
     }
 
@@ -343,5 +336,6 @@ public class DataInitializer {
         }
         // seedProducts("src/main/resources/data/kaufland_2025-05-01.csv");
         // seedDiscounts("src/main/resources/data/kaufland_discounts_2025-05-01.csv");
+        seedShoppingLists();
     }
 }

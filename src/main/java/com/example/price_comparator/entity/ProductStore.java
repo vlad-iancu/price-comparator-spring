@@ -42,8 +42,4 @@ public class ProductStore {
     @NonNull
     private Double price;
 
-    @Column(name = "removal", nullable = false)
-    @NonNull
-    private Boolean removal;
-
 }

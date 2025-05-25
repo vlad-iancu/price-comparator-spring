@@ -38,6 +38,7 @@ public class ShoppingList {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @NonNull
     private User user;
 
     @Column(name = "created_at", nullable = false)

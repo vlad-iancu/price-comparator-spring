@@ -1,6 +1,7 @@
 package com.example.price_comparator.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -14,6 +15,9 @@ public class DiscountId implements Serializable {
 
     @Column(name = "store_id")
     private Long store;
+
+    @Column(name = "from_date")
+    private LocalDate fromDate;
 
     public DiscountId() {}
 
@@ -36,6 +40,13 @@ public class DiscountId implements Serializable {
 
     public void setStore(Long store) {
         this.store = store;
+    }
+
+    public LocalDate getFromDate() {
+        return fromDate;
+    }
+    public void setFromDate(LocalDate fromDate) {
+        this.fromDate = fromDate;
     }
     // equals and hashCode based on product and store
     @Override

@@ -40,7 +40,6 @@ CREATE TABLE IF NOT EXISTS public.product_store
     package_quantity double precision,
     price double precision,
     updated_at date NOT NULL,
-    removal boolean NOT NULL DEFAULT false,
     PRIMARY KEY (store_id, product_id, updated_at)
 );
 
@@ -52,7 +51,7 @@ CREATE TABLE IF NOT EXISTS public.discount
     from_date date NOT NULL,
     to_date date NOT NULL,
     percentage double precision,
-    PRIMARY KEY (store_id, product_id)
+    PRIMARY KEY (store_id, product_id, from_date)
 );
 
 DROP TABLE IF EXISTS public.shopping_list CASCADE;

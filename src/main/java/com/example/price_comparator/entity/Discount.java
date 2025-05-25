@@ -43,10 +43,6 @@ public class Discount {
     @NonNull
     private Double discountPercentage;
 
-    @Column(name = "from_date", nullable = false)
-    @NonNull
-    private LocalDate fromDate;
-
     @Column(name = "to_date", nullable = false)
     @NonNull
     private LocalDate toDate;
