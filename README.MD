@@ -3,7 +3,7 @@ This is an application that compares grocery prices from different providers
 ### Configuration
 This application was build using [OpenJDK 17](https://openjdk.org/projects/jdk/17/)
 ```env
-#.env
+# example .env file
 
 PGADMIN_DEFAULT_EMAIL=admin@email.com
 PGADMIN_DEFAULT_PASSWORD=adminpassword

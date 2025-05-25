@@ -1,5 +1,7 @@
 package com.example.price_comparator.exception.handlers;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,6 +13,7 @@ import com.example.price_comparator.exception.types.UserAlreadyExistsException;
 import com.example.price_comparator.exception.types.UserNotFoundException;
 
 @RestControllerAdvice
+@Order(Ordered.HIGHEST_PRECEDENCE) // Ensure this handler is processed first
 public class AuthControllerHandler {
 
     @ExceptionHandler(UserAlreadyExistsException.class)

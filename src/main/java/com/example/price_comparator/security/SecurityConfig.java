@@ -15,6 +15,8 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.example.price_comparator.entity.User;
+
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -27,15 +29,18 @@ public class SecurityConfig {
         System.out.println("Configuring security filter chain");
         http
                 .csrf(csrf -> csrf.disable()) // disable CSRF for APIs (optional)
-                .authorizeHttpRequests(auth
-                        -> auth
-                        .requestMatchers("/register", "/login").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .oauth2ResourceServer(oauth2
-                        -> oauth2
-                        .jwt(Customizer.withDefaults())
-                );
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/register",
+                                "/login",
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**"
+
+                        ).permitAll()
+                        .anyRequest().authenticated())
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(Customizer.withDefaults()));
 
         return http.build();
     }
@@ -53,4 +58,5 @@ public class SecurityConfig {
         SecretKey key = new SecretKeySpec(secret.getBytes(), "HmacSHA256");
         return NimbusJwtDecoder.withSecretKey(key).build();
     }
+
 }

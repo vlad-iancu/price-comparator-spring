@@ -9,6 +9,6 @@ import com.example.price_comparator.entity.ShoppingList;
 public interface ShoppingListRepository extends JpaRepository<ShoppingList, Long> {
     // Custom query methods can be defined here if needed
     // Example: Find all shopping lists for a specific user
-    List<ShoppingList> findByUserId(Long userId);
+    List<ShoppingList> findAllByUserId(Long userId);
     
 }

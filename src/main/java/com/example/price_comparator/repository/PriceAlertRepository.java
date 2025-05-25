@@ -16,5 +16,9 @@ public interface PriceAlertRepository extends JpaRepository<PriceAlert, Long> {
     // Example: Find all price alerts for a specific user
     List<PriceAlert> findAllByUser(User user);
 
-    
+    List<PriceAlert> findAllByUserId(Long userId);
+
+    // Check if a price alert with a given name and userId exists
+    boolean existsByProductNameAndUserId(String name, Long userId);
+
 }

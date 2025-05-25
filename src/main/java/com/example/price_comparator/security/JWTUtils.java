@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.crypto.SecretKey;
 
+import com.example.price_comparator.entity.User;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -60,5 +62,12 @@ public class JWTUtils {
         } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
+    }
+
+    public static User getUserFromJwtUser(org.springframework.security.oauth2.jwt.Jwt jwtUser) {
+        Long id = Long.valueOf(jwtUser.getSubject());
+        User user = new User("", "");
+        user.setId(id);
+        return user;
     }
 }
